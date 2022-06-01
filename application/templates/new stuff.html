@@ -1,0 +1,145 @@
+#account page
+</div>
+        <div class="center col-md-6">
+            <!-- Account details card-->
+            <div class="card mb-4 mx-auto" style="width: 600px;">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                    <img class="rounded-circle account-img" src="{{ url_for('static', filename = '/images/pngwing.com.png') }}">
+                    <form>
+                        <!-- Form Group (username)-->
+                        <div class="account-heading mb-3">
+                            <label class="small mb-1" for="inputUsername">User ID </label>
+                            <input class="form-control" id="inputUsername" type="text"  value="{{session.id}}">
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder= "Enter your first name" value="{{session['Preferred Name']}}">
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Last Name" value="">
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Email Address" value="">
+                        </div>
+                        <!-- Form Group (Address)-->
+                        <div class="mb-3">
+                                <label class="small mb-1" for="inputAddressLine1">Address Line 1</label>
+                                <input class="form-control" id="inputAddressLine1" type="text" placeholder="Address" value="">
+                        </div>
+                        <div class="mb-3">
+                                <label class="small mb-1" for="inputAddressLine2">Address Line 1</label>
+                                <input class="form-control" id="inputAddressLine2" type="text" placeholder="Address" value="">
+                        </div>
+                         <!-- Form Row -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (City)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputCity">City</label>
+                                <input class="form-control" id="inputCity" type="text" placeholder="City" value="">
+                            </div>
+                            <!-- Form Group (Postcode)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPostcode">Postcode</label>
+                                <input class="form-control" id="inputPostcode" type="text" placeholder="Postcode" value="">
+                            </div>
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (phone number)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Phone number</label>
+                                <input class="form-control" id="inputPhone" type="tel" placeholder=" Phone number" value="555-123-4567">
+                            </div>
+                            <!-- Form Group (Allergens)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputAllergens">Allergens</label>
+                                <input class="form-control" id="inputAllergens" name="Allergens" placeholder="Allergens" value="{{session.Allergens}}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+    <div class="card col-md-6">
+     <h5>Why not submit a review from your last visit?</h5>
+    <div class='ReviewsForm'>
+                <form method='POST' action=''>
+                    <!-- provides CRSF protection, alongside secret key. Use on all POST forms -->
+                    {{ form.hidden_tag() }}
+                    {{ form.star_rating.label }} {{ form.star_rating }}
+                    <br>
+                    {{ form.review_comment.label(class="form-label") }} {{ form.review_comment(class="form-control") }}
+                    <br>
+                    {{ form.submit2(class="btn btn-primary") }}
+                {{ message }}
+                </form>
+            </div>
+    </div>
+
+
+
+
+                <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a review from your visit!</title>
+    <!--this has been added to include a navigation bar-->
+    <link rel="stylesheet" href="static/account.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+</head>
+<body>
+<!--this has been added to include a navigation bar-->
+{% include 'navbar.html' %}
+<h2 style="margin-left: 10px">Your Bookings</h2>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+{% for booking in bookings %}
+    <div class="result" style="min-width:60%; max-height:75%; margin-left: 10px">
+        <div>
+            Restaurant: {{booking.RestaurantName}}
+            <br>
+            ID: {{booking.Reservation_ID}}
+            <br>
+            Date: {{booking.reservation_date}}
+            <br>
+            Time: {{booking.reservation_time}}
+            <br>
+            Party Size: {{booking.party_size}}
+            <br>
+            <br>
+            <a href="{{url_for('delete_booking', ID=booking.Reservation_ID, name=booking.RestaurantName)}}" type="button">
+                    <button>Delete Booking</button>
+            </a>
+            <a href="{{url_for('update_booking', ID=booking.Reservation_ID, name=booking.RestaurantName)}}" type="button">
+                    <button>Update Booking</button>
+            </a>
+        </div>
+    </div>
+{% endfor %}
+<div class='ReviewsForm' style="margin-left: 10px">
+            <form method='POST' action=''>
+                <!-- provides CRSF protection, alongside secret key. Use on all POST forms -->
+                {{ form.hidden_tag() }}
+                {{ form.star_rating.label }} {{ form.star_rating }}
+                <br>
+                {{ form.review_comment.label(class="form-label") }} {{ form.review_comment(class="form-control") }}
+                <br>
+                {{ form.submit2(class="btn btn-primary") }}
+            {{ message }}
+            </form>
+        </div>
+
+</body>
+</html>
+
+

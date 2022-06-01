@@ -1,0 +1,8 @@
+flask~=2.1.1
+flask-sqlalchemy
+pymysql
+WTForms~=3.0.1
+flask_wtf
+markupsafe==2.0.1
+cryptography
+SQLAlchemy~=1.4.35

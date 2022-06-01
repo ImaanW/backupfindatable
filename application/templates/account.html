@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+  <div class="card-header">{{session['Preferred Name']}}</div>
+  <div class="card-body">
+    <h5 class="card-title">Welcome To Your User Account</h5>
+    <p class="card-text">
+        <strong>User ID:</strong>{{session.id}}<br>
+        <strong>Name:</strong>{{session['Preferred Name']}}<br>
+        <strong>Preferred Name:</strong><br>
+        <strong>Email:</strong><br>
+        <strong>Password:</strong><br>
+        <strong>Mobile number:</strong><br>
+        <strong>Address line 1:</strong><br>
+        <strong>Address line 2:</strong><br>
+        <strong>City:</strong><br>
+        <strong>Postcode:</strong><br>
+        <strong>Allergens:</strong>{{session.Allergens}}<br>
+        <strong></strong><br></p>
+</div>
+  </div>
+
+<br>
+
+<h1> Add a Review from your visit! </h1>
+<div class='ReviewsForm'>
+            <form method='POST' action=''>
+                <!-- provides CRSF protection, alongside secret key. Use on all POST forms -->
+                {{ form.hidden_tag() }}
+                {{ form.star_rating.label }} {{ form.star_rating }}
+                <br>
+                {{ form.review_comment.label(class="form-label") }} {{ form.review_comment(class="form-control") }}
+                <br>
+                {{ form.submit2(class="btn btn-primary") }}
+            {{ message }}
+            </form>
+        </div>
+</body>
+</html>
